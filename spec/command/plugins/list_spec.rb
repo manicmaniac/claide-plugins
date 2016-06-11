@@ -2,13 +2,13 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 # The CocoaPods namespace
 #
-module Pod
+module CLAide
   describe Command::Plugins::List do
     extend SpecHelper::PluginsStubs
 
     before do
-      UI.output = ''
-      @command = Pod::Command::Plugins::List.new CLAide::ARGV.new []
+      UI_OUT.reopen
+      @command = CLAide::Command::Plugins::List.new CLAide::ARGV.new []
     end
 
     it 'registers itself' do
@@ -21,9 +21,9 @@ module Pod
     it 'prints out all plugins' do
       stub_plugins_json_request
       @command.run
-      UI.output.should.include('github.com/CocoaPods/cocoapods-fake-1')
-      UI.output.should.include('github.com/CocoaPods/cocoapods-fake-2')
-      UI.output.should.include('github.com/chneukirchen/bacon')
+      UI_OUT.string.should.include('github.com/CLAide/claide-fake-1')
+      UI_OUT.string.should.include('github.com/CLAide/claide-fake-2')
+      UI_OUT.string.should.include('github.com/chneukirchen/bacon')
     end
   end
 end

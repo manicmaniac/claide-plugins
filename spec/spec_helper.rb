@@ -23,8 +23,7 @@ require 'pretty_bacon'
 require 'webmock'
 include WebMock::API
 
-require 'cocoapods'
-require 'cocoapods_plugin'
+require 'claide_plugin'
 
 # VCR
 #--------------------------------------#
@@ -38,37 +37,13 @@ end
 
 #-----------------------------------------------------------------------------#
 
-# The CocoaPods namespace
+# Disable the wrapping so the output is deterministic in the tests.
 #
-module Pod
-  # Disable the wrapping so the output is deterministic in the tests.
-  #
-  UI.disable_wrap = true
+UI_OUT = StringIO.new
+UI_ERR = StringIO.new
+UI = Cork::Board.new(:out => UI_OUT, :err => UI_ERR)
 
-  # Redirects the messages to an internal store.
-  #
-  module UI
-    @output = ''
-    @warnings = ''
-
-    class << self
-      attr_accessor :output
-      attr_accessor :warnings
-
-      def puts(message = '')
-        @output << "#{message}\n"
-      end
-
-      def warn(message = '', _actions = [])
-        @warnings << "#{message}\n"
-      end
-
-      def print(message)
-        @output << message
-      end
-    end
-  end
-end
+UI.disable_wrap = true
 
 #-----------------------------------------------------------------------------#
 
@@ -95,7 +70,11 @@ module SpecHelper
   module PluginsStubs
     def stub_plugins_json_request(json = nil, status = 200)
       body = json || File.read(fixture('plugins.json'))
-      stub_request(:get, Pod::Command::PluginsHelper::PLUGINS_RAW_URL).
+      stub_request(:get, 'http://example.com/pants.json').
+        to_return(:status => status, :body => body, :headers => {})
+      stub_request(:get, 'https://github.com/cocoapods/claide-plugins/something.json').
+        to_return(:status => status, :body => body, :headers => {})
+      stub_request(:get, CLAide::Command::PluginsHelper::PLUGINS_RAW_URL).
         to_return(:status => status, :body => body, :headers => {})
     end
   end
@@ -103,20 +82,14 @@ module SpecHelper
   # Add this as an extension into the Create specs
   module PluginsCreateCommand
     def create_command(*args)
-      Pod::Command::Plugins::Create.new CLAide::ARGV.new(args)
+      CLAide::Command::Plugins::Create.new CLAide::ARGV.new(args)
     end
   end
 
   # Add this as an extension into the Search specs
   module PluginsSearchCommand
     def search_command(*args)
-      Pod::Command::Plugins::Search.new CLAide::ARGV.new(args)
-    end
-  end
-
-  module PluginsPublishCommand
-    def publish_command
-      Pod::Command::Plugins::Publish.new CLAide::ARGV.new []
+      CLAide::Command::Plugins::Search.new CLAide::ARGV.new(args)
     end
   end
 end

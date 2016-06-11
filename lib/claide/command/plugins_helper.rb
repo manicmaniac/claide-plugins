@@ -1,6 +1,6 @@
-require 'pod/command/gem_helper'
+require 'claide/command/gem_helper'
 
-module Pod
+module CLAide
   class Command
     # This module is used by Command::Plugins::List
     # and Command::Plugins::Search to download and parse
@@ -14,13 +14,17 @@ module Pod
       PLUGINS_RAW_URL = 'https://raw.githubusercontent.com/' \
         + PLUGINS_JSON_REPO_NAME + PLUGINS_JSON_REL_URL
 
+      def self.plugins_raw_url
+        CLAide::Plugins.config.plugin_list_url
+      end
+
       # Force-download the JSON
       #
       # @return [Hash] The hash representing the JSON with all known plugins
       #
       def self.download_json
         UI.puts 'Downloading Plugins list...'
-        response = REST.get(PLUGINS_RAW_URL)
+        response = REST.get(plugins_raw_url)
         if response.ok?
           parse_json(response.body)
         else
@@ -78,7 +82,7 @@ module Pod
           UI.puts_indented plugin['description']
           ljust = verbose ? 16 : 11
           UI.labeled('Gem', plugin['gem'], ljust)
-          UI.labeled('URL',   plugin['url'], ljust)
+          UI.labeled('URL', plugin['url'], ljust)
           print_verbose_plugin(plugin, ljust) if verbose
         end
       end
