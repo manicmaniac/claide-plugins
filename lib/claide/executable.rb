@@ -7,7 +7,7 @@ module CLAide
   #     executable :git
   #
   # This will create two methods `git` and `git!` both accept a command but
-  # the later will raise on non successful executions. The methods return the
+  # the latter will raise on non successful executions. The methods return the
   # output of the command.
   #
   module Executable
@@ -28,7 +28,7 @@ module CLAide
       end
     end
 
-    # Executes the given command displaying it if in verbose mode.
+    # Executes the given command. Displays output if in verbose mode.
     #
     # @param  [String] bin
     #         The binary to use.
