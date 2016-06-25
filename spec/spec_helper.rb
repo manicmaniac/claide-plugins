@@ -74,8 +74,6 @@ module SpecHelper
         to_return(:status => status, :body => body, :headers => {})
       stub_request(:get, 'https://github.com/cocoapods/claide-plugins/something.json').
         to_return(:status => status, :body => body, :headers => {})
-      stub_request(:get, CLAide::Command::PluginsHelper::PLUGINS_RAW_URL).
-        to_return(:status => status, :body => body, :headers => {})
     end
   end
 

@@ -111,7 +111,7 @@ module CLAide
         # in order to update plugins.json once the plugin is released
         #
         def show_reminder
-          repo = PluginsHelper::PLUGINS_JSON_REPO
+          repo = PluginsHelper.plugins_raw_url
           UI.notice "Don't forget to create a Pull Request on #{repo}\n" \
             ' to add your plugin to the plugins.json file once it is released!'
         end

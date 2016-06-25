@@ -7,13 +7,6 @@ module CLAide
     # the JSON describing the plugins list and manipulate it
     #
     module PluginsHelper
-      PLUGINS_JSON_REPO_NAME = 'CocoaPods/cocoapods-plugins'
-      PLUGINS_JSON_REPO = 'https://github.com/' + PLUGINS_JSON_REPO_NAME
-      PLUGINS_JSON_REL_URL = '/master/plugins.json'
-
-      PLUGINS_RAW_URL = 'https://raw.githubusercontent.com/' \
-        + PLUGINS_JSON_REPO_NAME + PLUGINS_JSON_REL_URL
-
       def self.plugins_raw_url
         CLAide::Plugins.config.plugin_list_url
       end
