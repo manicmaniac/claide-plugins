@@ -1,7 +1,8 @@
-require 'pod/command/plugins_helper'
-require 'pod/command/gem_helper'
+require 'claide/command/plugins_helper'
+require 'claide/command/gem_helper'
+require 'claide/command'
 
-module Pod
+module CLAide
   class Command
     class Plugins
       # The search subcommand.
@@ -47,7 +48,8 @@ module Pod
           plugins = PluginsHelper.matching_plugins(@query, @full_text_search)
           GemHelper.download_and_cache_specs if self.verbose?
 
-          UI.title "Available CocoaPods Plugins matching '#{@query}':"
+          name = CLAide::Plugins.config.name
+          UI.title "Available #{name} Plugins matching '#{@query}':"
           plugins.each do |plugin|
             PluginsHelper.print_plugin plugin, self.verbose?
           end

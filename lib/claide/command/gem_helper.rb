@@ -1,6 +1,6 @@
-require 'pod/command/gem_index_cache'
+require 'claide/command/gem_index_cache'
 
-module Pod
+module CLAide
   class Command
     # This module is used by Command::PluginsHelper to download the Gem
     # Specification data, check if a Gem is installed, and provide info

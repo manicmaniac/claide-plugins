@@ -1,6 +1,6 @@
-require 'pod/command/gem_helper'
+require 'claide/command/gem_helper'
 
-module Pod
+module CLAide
   class Command
     # This class is used by Command::GemsHelper to download the Gem
     # Specification index from rubygems.org and provide info about

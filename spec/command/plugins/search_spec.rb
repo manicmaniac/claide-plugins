@@ -2,13 +2,13 @@ require File.expand_path('../../../spec_helper', __FILE__)
 
 # The CocoaPods namespace
 #
-module Pod
+module CLAide
   describe Command::Plugins::Search do
     extend SpecHelper::PluginsStubs
     extend SpecHelper::PluginsSearchCommand
 
     before do
-      UI.output = ''
+      UI_OUT.reopen
     end
 
     it 'registers itself' do
@@ -38,18 +38,18 @@ module Pod
       stub_plugins_json_request
       @command = search_command('search')
       @command.run
-      UI.output.should.not.include('-> CocoaPods Fake Gem')
-      UI.output.should.include('-> CocoaPods Searchable Fake Gem')
-      UI.output.should.not.include('-> Bacon')
+      UI_OUT.string.should.not.include('-> CLAide Fake Gem')
+      UI_OUT.string.should.include('-> CLAide Searchable Fake Gem')
+      UI_OUT.string.should.not.include('-> Bacon')
     end
 
     it 'should filter plugins by name, author, description with full search' do
       stub_plugins_json_request
       @command = search_command('--full', 'search')
       @command.run
-      UI.output.should.include('-> CocoaPods Fake Gem')
-      UI.output.should.include('-> CocoaPods Searchable Fake Gem')
-      UI.output.should.not.include('-> Bacon')
+      UI_OUT.string.should.include('-> CLAide Fake Gem')
+      UI_OUT.string.should.include('-> CLAide Searchable Fake Gem')
+      UI_OUT.string.should.not.include('-> Bacon')
     end
   end
 end

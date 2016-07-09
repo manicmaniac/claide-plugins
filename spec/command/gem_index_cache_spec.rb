@@ -2,11 +2,11 @@ require File.expand_path('../spec_helper', File.dirname(__FILE__))
 
 # The CocoaPods namespace
 #
-module Pod
+module CLAide
   describe Command::GemIndexCache do
     before do
       @cache = Command::GemIndexCache.new
-      UI.output = ''
+      UI_OUT.reopen
     end
 
     after do
@@ -18,8 +18,9 @@ module Pod
       Gem::SpecFetcher.any_instance.stubs(:available_specs).returns(response)
 
       @cache.download_and_cache_specs
-      UI.output.should.include('Downloading Rubygem specification index...')
-      UI.output.should.not.include('Error downloading Rubygem specification')
+      out = UI_OUT.string
+      out.should.include('Downloading Rubygem specification index...')
+      out.should.not.include('Error downloading Rubygem specification')
     end
 
     it 'notifies the user when getting the spec index fails' do
@@ -30,8 +31,8 @@ module Pod
 
       @cache.download_and_cache_specs
       @cache.specs.should.be.empty?
-      UI.output.should.include('Downloading Rubygem specification index...')
-      UI.output.should.include('Error downloading Rubygem specification')
+      UI_OUT.string.should.include('Downloading Rubygem specification index...')
+      UI_OUT.string.should.include('Error downloading Rubygem specification')
     end
   end
 end

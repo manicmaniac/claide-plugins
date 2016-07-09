@@ -1,6 +1,7 @@
-require 'pod/command/plugins_helper'
+require 'claide/command/plugins_helper'
+require 'claide/executable'
 
-module Pod
+module CLAide
   class Command
     class Plugins
       # The create subcommand. Used to create a new plugin using either the
@@ -8,7 +9,7 @@ module Pod
       # template
       #
       class Create < Plugins
-        NAME_PREFIX = 'cocoapods-'
+        NAME_PREFIX = 'claide-'
 
         self.summary = 'Creates a new plugin'
         self.description = <<-DESC
@@ -55,7 +56,7 @@ module Pod
 
         # !@group Private helpers
 
-        extend Executable
+        extend CLAide::Executable
         executable :git
 
         TEMPLATE_BASE_URL = 'https://github.com/CocoaPods/'
@@ -110,7 +111,7 @@ module Pod
         # in order to update plugins.json once the plugin is released
         #
         def show_reminder
-          repo = PluginsHelper::PLUGINS_JSON_REPO
+          repo = PluginsHelper.plugins_raw_url
           UI.notice "Don't forget to create a Pull Request on #{repo}\n" \
             ' to add your plugin to the plugins.json file once it is released!'
         end

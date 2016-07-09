@@ -2,7 +2,7 @@ require File.expand_path('../spec_helper', File.dirname(__FILE__))
 
 # The CocoaPods namespace
 #
-module Pod
+module CLAide
   describe Command::PluginsHelper do
     extend SpecHelper::PluginsStubs
 
@@ -17,7 +17,7 @@ module Pod
     it 'handles empty/bad JSON' do
       stub_plugins_json_request 'This is not JSON'
       expected_error = /Invalid plugins list from cocoapods-plugins/
-      should.raise(Pod::Informative) do
+      should.raise(CLAide::Informative) do
         Command::PluginsHelper.download_json
       end.message.should.match(expected_error)
     end
@@ -25,7 +25,7 @@ module Pod
     it 'notifies the user if the download fails' do
       stub_plugins_json_request '', [404, 'Not Found']
       expected_error = /Could not download plugins list from cocoapods-plugins/
-      should.raise(Pod::Informative) do
+      should.raise(CLAide::Informative) do
         Command::PluginsHelper.download_json
       end.message.should.match(expected_error)
     end

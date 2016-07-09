@@ -1,11 +1,12 @@
 require File.expand_path('../spec_helper', File.dirname(__FILE__))
+require 'claide/command/gem_helper'
 
-# The CocoaPods namespace
+# The CLAide namespace
 #
-module Pod
+module CLAide
   describe Command::GemHelper do
     before do
-      UI.output = ''
+      UI_OUT.reopen
     end
 
     after do

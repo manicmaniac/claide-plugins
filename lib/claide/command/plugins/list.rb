@@ -1,7 +1,7 @@
-require 'pod/command/plugins_helper'
-require 'pod/command/gem_helper'
+require 'claide/command/plugins_helper'
+require 'claide/command/gem_helper'
 
-module Pod
+module CLAide
   class Command
     class Plugins
       # The list subcommand. Used to list all known plugins
@@ -21,7 +21,8 @@ module Pod
           plugins = PluginsHelper.known_plugins
           GemHelper.download_and_cache_specs if self.verbose?
 
-          UI.title 'Available CocoaPods Plugins:' do
+          name = CLAide::Plugins.config.name
+          UI.title "Available #{name} Plugins:" do
             plugins.each do |plugin|
               PluginsHelper.print_plugin plugin, self.verbose?
             end

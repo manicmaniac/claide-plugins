@@ -3,12 +3,12 @@ require 'tmpdir'
 
 # The CocoaPods namespace
 #
-module Pod
+module CLAide
   describe Command::Plugins::Create do
     extend SpecHelper::PluginsCreateCommand
 
     before do
-      UI.output = ''
+      UI_OUT.reopen
     end
 
     it 'registers itself' do
@@ -48,42 +48,42 @@ module Pod
           @command.run
         end
       end
-      UI.output.should.include('Creating `cocoapods-unprefixed` plugin')
+      UI_OUT.string.should.include('Creating `claide-unprefixed` plugin')
     end
 
     it 'should not prefix the name if already prefixed' do
-      @command = create_command('cocoapods-prefixed')
+      @command = create_command('claide-prefixed')
       Dir.mktmpdir do |tmpdir|
         Dir.chdir(tmpdir) do
           @command.run
         end
       end
-      UI.output.should.include('Creating `cocoapods-prefixed` plugin')
+      UI_OUT.string.should.include('Creating `claide-prefixed` plugin')
     end
 
     #--- Template download
 
     it 'should download the default template repository' do
-      @command = create_command('cocoapods-banana')
+      @command = create_command('claide-banana')
 
       template_repo = 'https://github.com/CocoaPods/' \
         'cocoapods-plugin-template.git'
-      git_command = ['clone', template_repo, 'cocoapods-banana']
+      git_command = ['clone', template_repo, 'claide-banana']
       @command.expects(:git!).with(git_command)
       @command.expects(:configure_template)
       @command.run
-      UI.output.should.include('Creating `cocoapods-banana` plugin')
+      UI_OUT.string.should.include('Creating `claide-banana` plugin')
     end
 
     it 'should download the passed in template repository' do
       alt_repo = 'https://github.com/CocoaPods/' \
-        'cocoapods-banana-plugin-template.git'
-      @command = create_command('cocoapods-banana', alt_repo)
+        'claide-banana-plugin-template.git'
+      @command = create_command('claide-banana', alt_repo)
 
-      @command.expects(:git!).with(['clone', alt_repo, 'cocoapods-banana'])
+      @command.expects(:git!).with(['clone', alt_repo, 'claide-banana'])
       @command.expects(:configure_template)
       @command.run
-      UI.output.should.include('Creating `cocoapods-banana` plugin')
+      UI_OUT.string.should.include('Creating `claide-banana` plugin')
     end
   end
 end
