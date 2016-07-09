@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'nap', '~> 1.0'
-  spec.add_runtime_dependency 'cork', '> 0'
+  spec.add_runtime_dependency 'cork', '~> 0'
   spec.add_runtime_dependency 'open4', '~> 1.3'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
