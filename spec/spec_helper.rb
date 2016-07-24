@@ -62,6 +62,19 @@ end
 
 #-----------------------------------------------------------------------------#
 
+# Use test specific settings inside all of the tests
+#
+
+def default_testing_config
+  CLAide::Plugins::Configuration.new('CLAideTesting',
+                                     'claidetest',
+                                     'https://github.com/cocoapods/claide-plugins/something.json',
+                                     'https://github.com/danger/danger-plugin-template')
+end
+
+CLAide::Plugins.config = default_testing_config
+#-----------------------------------------------------------------------------#
+
 # SpecHelper namespace
 #
 module SpecHelper

@@ -7,8 +7,20 @@ module CLAide
   describe Command::Plugins::Create do
     extend SpecHelper::PluginsCreateCommand
 
+    # We need to have a working repo for the template inside this test
+    # suite so we're using the real Danger config file, then setting
+    # it back to the default.
     before do
       UI_OUT.reopen
+      config = CLAide::Plugins::Configuration.new('Danger',
+                                                  'danger',
+                                                  'https://raw.githubusercontent.com/danger/danger.systems/master/plugins-search-generated.json',
+                                                  'https://github.com/danger/danger-plugin-template')
+      CLAide::Plugins.config = config
+    end
+
+    after do
+      CLAide::Plugins.config = default_testing_config
     end
 
     it 'registers itself' do
@@ -41,6 +53,9 @@ module CLAide
 
     #--- Naming
 
+    # These have to be `danger` as the configure script runs from the danger
+    # plugin template repo.
+
     it 'should prefix the given name if not already' do
       @command = create_command('unprefixed')
       Dir.mktmpdir do |tmpdir|
@@ -48,42 +63,42 @@ module CLAide
           @command.run
         end
       end
-      UI_OUT.string.should.include('Creating `claide-unprefixed` plugin')
+      UI_OUT.string.should.include('Creating `danger-unprefixed` plugin')
     end
 
     it 'should not prefix the name if already prefixed' do
-      @command = create_command('claide-prefixed')
+      @command = create_command('danger-prefixed')
       Dir.mktmpdir do |tmpdir|
         Dir.chdir(tmpdir) do
           @command.run
         end
       end
-      UI_OUT.string.should.include('Creating `claide-prefixed` plugin')
+      UI_OUT.string.should.include('Creating `danger-prefixed` plugin')
     end
 
     #--- Template download
 
     it 'should download the default template repository' do
-      @command = create_command('claide-banana')
+      @command = create_command('danger-banana')
 
-      template_repo = 'https://github.com/CocoaPods/' \
-        'cocoapods-plugin-template.git'
-      git_command = ['clone', template_repo, 'claide-banana']
+      template_repo = 'https://github.com/danger/' \
+        'danger-plugin-template'
+      git_command = ['clone', template_repo, 'danger-banana']
       @command.expects(:git!).with(git_command)
       @command.expects(:configure_template)
       @command.run
-      UI_OUT.string.should.include('Creating `claide-banana` plugin')
+      UI_OUT.string.should.include('Creating `danger-banana` plugin')
     end
 
     it 'should download the passed in template repository' do
-      alt_repo = 'https://github.com/CocoaPods/' \
-        'claide-banana-plugin-template.git'
-      @command = create_command('claide-banana', alt_repo)
+      alt_repo = 'https://github.com/danger/' \
+        'danger-banana-plugin-template'
+      @command = create_command('danger-banana', alt_repo)
 
-      @command.expects(:git!).with(['clone', alt_repo, 'claide-banana'])
+      @command.expects(:git!).with(['clone', alt_repo, 'danger-banana'])
       @command.expects(:configure_template)
       @command.run
-      UI_OUT.string.should.include('Creating `claide-banana` plugin')
+      UI_OUT.string.should.include('Creating `danger-banana` plugin')
     end
   end
 end

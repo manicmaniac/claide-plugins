@@ -9,12 +9,11 @@ module CLAide
       # template
       #
       class Create < Plugins
-
         self.summary = 'Creates a new plugin'
         def self.description
           <<-DESC
                 Creates a scaffold for the development of a new plugin
-                named `NAME` according to the #{ CLAide::Plugins.config.name } best practices.
+                named `NAME` according to the best practices.
 
                 If a `TEMPLATE_URL`, pointing to a git repo containing a
                 compatible template, is specified, it will be used
@@ -29,8 +28,7 @@ module CLAide
 
         def initialize(argv)
           @name = argv.shift_argument
-          prefix = CLAide::Plugins.config.plugin_prefix
-
+          prefix = CLAide::Plugins.config.plugin_prefix + '-'
           unless @name.nil? || @name.empty? || @name.start_with?(prefix)
             @name = prefix + @name.dup
           end

@@ -25,7 +25,7 @@ module CLAide
     end
 
     it 'should default to a CLAide plugin config' do
-      config = CLAide::Plugins.config
+      config = CLAide::Plugins::Configuration.new
       config.name.should.equal('default name')
       config.plugin_prefix.should.equal('claide')
       config.plugin_list_url.should.equal('https://github.com/cocoapods/claide-plugins/something.json')

@@ -23,6 +23,7 @@ GEM
     bacon (1.2.0)
     codeclimate-test-reporter (0.4.0)
       simplecov (>= 0.7.1, < 1.0.0)
+    coderay (1.1.1)
     colored (1.2)
     cork (0.1.0)
       colored (~> 1.2)
@@ -30,6 +31,7 @@ GEM
       safe_yaml (~> 1.0.0)
     docile (1.1.5)
     metaclass (0.0.4)
+    method_source (0.8.2)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     mocha-on-bacon (0.2.2)
@@ -42,6 +44,10 @@ GEM
     powerpack (0.1.0)
     prettybacon (0.0.2)
       bacon (~> 1.2)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rainbow (2.0.0)
     rake (10.3.2)
     rubocop (0.29.1)
@@ -57,6 +63,7 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    slop (3.6.0)
     vcr (2.9.3)
     webmock (1.20.4)
       addressable (>= 2.3.6)
@@ -73,6 +80,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   mocha-on-bacon
   prettybacon
+  pry
   rake
   rubocop
   vcr
