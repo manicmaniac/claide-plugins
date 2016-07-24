@@ -11,6 +11,10 @@ module CLAide
         CLAide::Plugins.config.plugin_list_url
       end
 
+      def self.plugin_prefix
+        CLAide::Plugins.config.plugin_prefix
+      end
+
       # Force-download the JSON
       #
       # @return [Hash] The hash representing the JSON with all known plugins
@@ -22,7 +26,7 @@ module CLAide
           parse_json(response.body)
         else
           raise Informative, 'Could not download plugins list ' \
-            "from cocoapods-plugins: #{response.inspect}"
+            "from #{plugin_prefix}-plugins: #{response.inspect}"
         end
       end
 
@@ -109,7 +113,8 @@ module CLAide
       def self.parse_json(json_str)
         JSON.parse(json_str)
       rescue JSON::ParserError => e
-        raise Informative, "Invalid plugins list from cocoapods-plugins: #{e}"
+        raise Informative,
+              "Invalid plugins list from #{plugin_prefix}-plugins: #{e}"
       end
 
       # Format the title line to print the plugin info with print_plugin

@@ -8,10 +8,10 @@ module CLAide
       #
       class List < Plugins
         self.summary = 'List all known plugins'
-        self.description = <<-DESC
-                List all known plugins (according to the list
-                hosted on github.com/CocoaPods/cocoapods-plugins)
-        DESC
+        def self.description
+          "List all known plugins (according to the list
+                hosted on #{ CLAide::Plugins.config.plugin_list_url })"
+        end
 
         def self.options
           super.reject { |option, _| option == '--silent' }

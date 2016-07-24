@@ -16,7 +16,7 @@ module CLAide
 
     it 'handles empty/bad JSON' do
       stub_plugins_json_request 'This is not JSON'
-      expected_error = /Invalid plugins list from cocoapods-plugins/
+      expected_error = /Invalid plugins list from claidetest-plugins/
       should.raise(CLAide::Informative) do
         Command::PluginsHelper.download_json
       end.message.should.match(expected_error)
@@ -24,7 +24,7 @@ module CLAide
 
     it 'notifies the user if the download fails' do
       stub_plugins_json_request '', [404, 'Not Found']
-      expected_error = /Could not download plugins list from cocoapods-plugins/
+      expected_error = /Could not download plugins list from claidetest-plugins/
       should.raise(CLAide::Informative) do
         Command::PluginsHelper.download_json
       end.message.should.match(expected_error)
