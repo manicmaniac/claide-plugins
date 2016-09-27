@@ -84,8 +84,8 @@ module CLAide
       template_repo = 'https://github.com/danger/' \
         'danger-plugin-template'
       git_command = ['clone', template_repo, 'danger-banana']
-      @command.expects(:git!).with(git_command)
-      @command.expects(:configure_template)
+      CLAide::TemplateRunner.any_instance.expects(:git!).with(git_command)
+      CLAide::TemplateRunner.any_instance.expects(:configure_template)
       @command.run
       UI_OUT.string.should.include('Creating `danger-banana` plugin')
     end
@@ -95,8 +95,9 @@ module CLAide
         'danger-banana-plugin-template'
       @command = create_command('danger-banana', alt_repo)
 
-      @command.expects(:git!).with(['clone', alt_repo, 'danger-banana'])
-      @command.expects(:configure_template)
+      git_command = ['clone', alt_repo, 'danger-banana']
+      CLAide::TemplateRunner.any_instance.expects(:git!).with(git_command)
+      CLAide::TemplateRunner.any_instance.expects(:configure_template)
       @command.run
       UI_OUT.string.should.include('Creating `danger-banana` plugin')
     end

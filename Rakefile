@@ -29,7 +29,9 @@ begin
     duration = Time.now - start_time
     puts "Tests completed in #{duration}s"
     Rake::Task['rubocop'].invoke
-    Rake::Task['validate_json'].invoke
+
+    # This is not used in this library
+    # Rake::Task['validate_json'].invoke
   end
 
   def specs(dir)
