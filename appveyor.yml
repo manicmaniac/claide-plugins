@@ -5,4 +5,4 @@ install:
 build: off
 
 test_script:
-  - bundle exec rake specs
+  - bundle exec rake spec
