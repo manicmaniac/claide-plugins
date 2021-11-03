@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
                          This plugin adds the "plugins" subcommand to a binary so that you can list
                          all plugins (registered in the reference JSON hosted at CocoaPods/cocoapods-plugins)
                        DESC
-  spec.homepage      = 'https://github.com/cocoapods/claide-plugins'
+  spec.homepage      = 'https://github.com/dbgrandi/claide-plugins'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
