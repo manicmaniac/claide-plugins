@@ -10,7 +10,6 @@ jobs:
           - macOS-latest
         ruby:
           - '2.7'
-          - '3.3'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
