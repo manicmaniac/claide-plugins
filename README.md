@@ -1,6 +1,6 @@
 # CLAide plugins
 
-[![Build Status](https://img.shields.io/travis/CocoaPods/cocoapods-plugins/master.svg?style=flat)](https://travis-ci.org/CocoaPods/cocoapods-plugins)
+[![Test](https://github.com/dbgrandi/claide-plugins/actions/workflows/test.yml/badge.svg)](https://github.com/dbgrandi/claide-plugins/actions/workflows/test.yml)
 
 CLAide plugin which shows info about available CLAide plugins or helps you get started developing a new plugin. Yeah, it's very meta. 
 
