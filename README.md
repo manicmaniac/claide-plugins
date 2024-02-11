@@ -1,8 +1,6 @@
 # CLAide plugins
 
 [![Build Status](https://img.shields.io/travis/CocoaPods/cocoapods-plugins/master.svg?style=flat)](https://travis-ci.org/CocoaPods/cocoapods-plugins)
-[![Coverage](https://img.shields.io/codeclimate/coverage/github/CocoaPods/cocoapods-plugins.svg?style=flat)](https://codeclimate.com/github/CocoaPods/cocoapods-plugins)
-[![Code Climate](https://img.shields.io/codeclimate/github/CocoaPods/cocoapods-plugins.svg?style=flat)](https://codeclimate.com/github/CocoaPods/cocoapods-plugins)
 
 CLAide plugin which shows info about available CLAide plugins or helps you get started developing a new plugin. Yeah, it's very meta. 
 
