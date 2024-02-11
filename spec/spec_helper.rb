@@ -12,18 +12,14 @@ require 'mocha-on-bacon'
 require 'pretty_bacon'
 
 require 'webmock'
-include WebMock::API
 
 require 'claide_plugin'
 
-# VCR
+# Webmock
 #--------------------------------------#
+include WebMock::API
 
-require 'vcr'
-VCR.configure do |c|
-  c.cassette_library_dir = ROOT + 'spec/fixtures/vcr_cassettes'
-  c.hook_into :webmock
-end
+WebMock.disable_net_connect!
 
 #-----------------------------------------------------------------------------#
 
