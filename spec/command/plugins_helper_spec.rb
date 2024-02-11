@@ -6,6 +6,8 @@ module CLAide
   describe Command::PluginsHelper do
     extend SpecHelper::PluginsStubs
 
+    before { CLAide::Plugins.config = default_testing_config }
+
     it 'downloads the json file' do
       stub_plugins_json_request
       json = Command::PluginsHelper.download_json
