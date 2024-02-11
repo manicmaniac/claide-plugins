@@ -1,4 +1,5 @@
 require File.expand_path('../spec_helper', File.dirname(__FILE__))
+require 'rubygems/name_tuple'
 require 'claide/command/gem_helper'
 
 # The CLAide namespace
